@@ -12,7 +12,7 @@ gtag('js', new Date());
 gtag('config', 'G-CZJ8X185MG');</script>
     <meta name="description" content="go-cqhttp帮助中心">
     
-    <link rel="preload" href="/assets/css/0.styles.0ae13862.css" as="style"><link rel="preload" href="/assets/js/app.809e9c9f.js" as="script"><link rel="preload" href="/assets/js/2.19ce4ea2.js" as="script"><link rel="preload" href="/assets/js/17.70351a7c.js" as="script"><link rel="preload" href="/assets/js/3.1780971e.js" as="script"><link rel="prefetch" href="/assets/js/10.1219a900.js"><link rel="prefetch" href="/assets/js/11.a72ed09c.js"><link rel="prefetch" href="/assets/js/12.f65b11de.js"><link rel="prefetch" href="/assets/js/13.0df1e820.js"><link rel="prefetch" href="/assets/js/14.a362c552.js"><link rel="prefetch" href="/assets/js/15.111d4bd9.js"><link rel="prefetch" href="/assets/js/16.7b37b56b.js"><link rel="prefetch" href="/assets/js/18.c050f7a2.js"><link rel="prefetch" href="/assets/js/19.d051dcf4.js"><link rel="prefetch" href="/assets/js/20.209017b2.js"><link rel="prefetch" href="/assets/js/21.660d7999.js"><link rel="prefetch" href="/assets/js/4.63135e2d.js"><link rel="prefetch" href="/assets/js/5.de591e44.js"><link rel="prefetch" href="/assets/js/6.18475150.js"><link rel="prefetch" href="/assets/js/7.6d1bb3b8.js"><link rel="prefetch" href="/assets/js/8.9ff544e4.js"><link rel="prefetch" href="/assets/js/9.58bb3be4.js">
+    <link rel="preload" href="/assets/css/0.styles.0ae13862.css" as="style"><link rel="preload" href="/assets/js/app.90eb56fe.js" as="script"><link rel="preload" href="/assets/js/2.19ce4ea2.js" as="script"><link rel="preload" href="/assets/js/17.d79469da.js" as="script"><link rel="preload" href="/assets/js/3.1780971e.js" as="script"><link rel="prefetch" href="/assets/js/10.b565b550.js"><link rel="prefetch" href="/assets/js/11.d4142c19.js"><link rel="prefetch" href="/assets/js/12.5d6fec89.js"><link rel="prefetch" href="/assets/js/13.0df1e820.js"><link rel="prefetch" href="/assets/js/14.a362c552.js"><link rel="prefetch" href="/assets/js/15.111d4bd9.js"><link rel="prefetch" href="/assets/js/16.a60b5e28.js"><link rel="prefetch" href="/assets/js/18.371615cf.js"><link rel="prefetch" href="/assets/js/19.09316608.js"><link rel="prefetch" href="/assets/js/20.404cf367.js"><link rel="prefetch" href="/assets/js/21.660d7999.js"><link rel="prefetch" href="/assets/js/4.63135e2d.js"><link rel="prefetch" href="/assets/js/5.de591e44.js"><link rel="prefetch" href="/assets/js/6.18475150.js"><link rel="prefetch" href="/assets/js/7.6d1bb3b8.js"><link rel="prefetch" href="/assets/js/8.9ff544e4.js"><link rel="prefetch" href="/assets/js/9.58bb3be4.js">
     <link rel="stylesheet" href="/assets/css/0.styles.0ae13862.css">
   </head>
   <body>
@@ -116,12 +116,65 @@ gtag('config', 'G-CZJ8X185MG');</script>
     <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
 
 <span class="token comment"># 连接服务列表</span>
-<span class="token key atrule">servers</span><span class="token punctuation">:</span>
+<span class="token key atrule">servers</span><span class="token punctuation">:</span>  
   <span class="token comment"># 添加方式，同一连接方式可添加多个，具体配置说明请查看文档</span>
   <span class="token comment">#- http: # http 通信</span>
   <span class="token comment">#- ws:   # 正向 Websocket</span>
   <span class="token comment">#- ws-reverse: # 反向 Websocket</span>
   <span class="token comment">#- pprof: #性能分析服务器</span>
+</code></pre></div><p>servers部分参考配置：</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">servers</span><span class="token punctuation">:</span>
+  <span class="token comment"># HTTP 通信设置</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">http</span><span class="token punctuation">:</span>
+      <span class="token comment"># 服务端监听地址</span>
+      <span class="token key atrule">host</span><span class="token punctuation">:</span> 127.0.0.1
+      <span class="token comment"># 服务端监听端口</span>
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">5700</span>
+      <span class="token comment"># 反向HTTP超时时间, 单位秒</span>
+      <span class="token comment"># 最小值为5，小于5将会忽略本项设置</span>
+      <span class="token key atrule">timeout</span><span class="token punctuation">:</span> <span class="token number">5</span>
+      <span class="token key atrule">middlewares</span><span class="token punctuation">:</span>
+        <span class="token key atrule">&lt;&lt;</span><span class="token punctuation">:</span> <span class="token important">*default</span> <span class="token comment"># 引用默认中间件</span>
+      <span class="token comment"># 反向HTTP POST地址列表</span>
+      <span class="token key atrule">post</span><span class="token punctuation">:</span>
+      <span class="token comment">#- url: '' # 地址</span>
+      <span class="token comment">#  secret: ''           # 密钥</span>
+      <span class="token comment">#- url: 127.0.0.1:5701 # 地址</span>
+      <span class="token comment">#  secret: ''          # 密钥</span>
+
+  <span class="token comment"># 正向WS设置</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">ws</span><span class="token punctuation">:</span>
+      <span class="token comment"># 正向WS服务器监听地址</span>
+      <span class="token key atrule">host</span><span class="token punctuation">:</span> 127.0.0.1
+      <span class="token comment"># 正向WS服务器监听端口</span>
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">6700</span>
+      <span class="token key atrule">middlewares</span><span class="token punctuation">:</span>
+        <span class="token key atrule">&lt;&lt;</span><span class="token punctuation">:</span> <span class="token important">*default</span> <span class="token comment"># 引用默认中间件</span>
+
+  <span class="token punctuation">-</span> <span class="token key atrule">ws-reverse</span><span class="token punctuation">:</span>
+      <span class="token comment"># 反向WS Universal 地址</span>
+      <span class="token comment"># 注意 设置了此项地址后下面两项将会被忽略</span>
+      <span class="token key atrule">universal</span><span class="token punctuation">:</span> ws<span class="token punctuation">:</span>//your_websocket_universal.server
+      <span class="token comment"># 反向WS API 地址</span>
+      <span class="token key atrule">api</span><span class="token punctuation">:</span> ws<span class="token punctuation">:</span>//your_websocket_api.server
+      <span class="token comment"># 反向WS Event 地址</span>
+      <span class="token key atrule">event</span><span class="token punctuation">:</span> ws<span class="token punctuation">:</span>//your_websocket_event.server
+      <span class="token comment"># 重连间隔 单位毫秒</span>
+      <span class="token key atrule">reconnect-interval</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+      <span class="token key atrule">middlewares</span><span class="token punctuation">:</span>
+        <span class="token key atrule">&lt;&lt;</span><span class="token punctuation">:</span> <span class="token important">*default</span> <span class="token comment"># 引用默认中间件</span>
+  <span class="token comment"># pprof 性能分析服务器, 一般情况下不需要启用.</span>
+  <span class="token comment"># 如果遇到性能问题请上传报告给开发者处理</span>
+  <span class="token comment"># 注意: pprof服务不支持中间件、不支持鉴权. 请不要开放到公网</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">pprof</span><span class="token punctuation">:</span>
+      <span class="token comment"># pprof服务器监听地址</span>
+      <span class="token key atrule">host</span><span class="token punctuation">:</span> 127.0.0.1
+      <span class="token comment"># pprof服务器监听端口</span>
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">7700</span>
+
+  <span class="token comment"># 可添加更多</span>
+  <span class="token comment">#- ws-reverse:</span>
+  <span class="token comment">#- ws:</span>
+  <span class="token comment">#- http:</span>
 </code></pre></div><h2 id="在线状态"><a href="#在线状态" class="header-anchor">#</a> 在线状态</h2> <table><thead><tr><th>状态</th> <th>值</th></tr></thead> <tbody><tr><td>在线</td> <td>0</td></tr> <tr><td>离开</td> <td>1</td></tr> <tr><td>隐身</td> <td>2</td></tr> <tr><td>忙</td> <td>3</td></tr> <tr><td>听歌中</td> <td>4</td></tr> <tr><td>星座运势</td> <td>5</td></tr> <tr><td>今日天气</td> <td>6</td></tr> <tr><td>遇见春天</td> <td>7</td></tr> <tr><td>Timi中</td> <td>8</td></tr> <tr><td>吃鸡中</td> <td>9</td></tr> <tr><td>恋爱中</td> <td>10</td></tr> <tr><td>汪汪汪</td> <td>11</td></tr> <tr><td>干饭中</td> <td>12</td></tr> <tr><td>学习中</td> <td>13</td></tr> <tr><td>熬夜中</td> <td>14</td></tr> <tr><td>打球中</td> <td>15</td></tr> <tr><td>信号弱</td> <td>16</td></tr> <tr><td>在线学习</td> <td>17</td></tr> <tr><td>游戏中</td> <td>18</td></tr> <tr><td>度假中</td> <td>19</td></tr> <tr><td>追剧中</td> <td>20</td></tr> <tr><td>健身中</td> <td>21</td></tr></tbody></table> <div class="custom-block tip"><p class="custom-block-title">提示</p> <p>开启密码加密后程序将在每次启动时要求输入解密密钥, 密钥错误会导致登录时提示密码错误.</p> <p>解密后密码将储存在内存中, 用于自动重连等功能. 所以此加密并不能防止内存读取.</p> <p>解密密钥在使用完成后并不会留存在内存中, 所以可用相对简单的字符串作为密钥</p> <p>分片发送为原酷Q发送长消息的老方案, 发送速度更优/兼容性更好, 但在有发言频率限制的群里, 可能无法发送。关闭后将优先使用新方案, 能发送更长的消息, 但发送速度更慢, 在部分老客户端将无法解析.</p></div> <div class="custom-block warning"><p class="custom-block-title">注意</p> <p>关闭心跳服务可能引起断线, 请谨慎关闭</p></div> <h2 id="设备信息"><a href="#设备信息" class="header-anchor">#</a> 设备信息</h2> <p>默认生成的设备信息如下所示:</p> <div class="language-json5 extra-class"><pre class="language-json5"><code><span class="token punctuation">{</span>
   <span class="token property">&quot;protocol&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
   <span class="token property">&quot;display&quot;</span><span class="token operator">:</span> <span class="token string">&quot;xxx&quot;</span><span class="token punctuation">,</span>
@@ -158,7 +211,7 @@ gtag('config', 'G-CZJ8X185MG');</script>
 <span class="token punctuation">}</span>
 </code></pre></div><p>在大部分情况下 我们只需要关心 <code>protocol</code> 字段:</p> <table><thead><tr><th>值</th> <th>类型</th> <th>限制</th></tr></thead> <tbody><tr><td>0</td> <td>iPad</td> <td>无</td></tr> <tr><td>1</td> <td>Android Phone</td> <td>无</td></tr> <tr><td>2</td> <td>Android Watch</td> <td>无法接收 <code>notify</code> 事件、无法接收口令红包、无法接收撤回消息</td></tr> <tr><td>3</td> <td>MacOS</td> <td>无</td></tr></tbody></table> <div class="custom-block warning"><p class="custom-block-title">注意</p> <p>根据协议的不同, 各类消息有所限制</p></div> <h2 id="自定义服务器ip"><a href="#自定义服务器ip" class="header-anchor">#</a> 自定义服务器IP</h2> <div class="custom-block tip"><p class="custom-block-title">提示</p> <p>某些海外服务器使用默认地址可能会存在链路问题, 此功能可以指定 go-cqhttp 连接哪些地址以达到最优化.</p></div> <p>将文件 <code>address.txt</code> 创建到 <code>go-cqhttp</code> 工作目录, 并键入 <code>IP:PORT</code> 以换行符为分割即可.</p> <p>示例:</p> <div class="language- extra-class"><pre class="language-text"><code>1.1.1.1:53
 1.1.2.2:8899
-</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ishkong/go-cqhttp-docs/edit/main/docs/guide/config.md" target="_blank" rel="noopener noreferrer">编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">上一次编辑:</span> <span class="time">6/25/2021, 11:15:03 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ishkong/go-cqhttp-docs/edit/main/docs/guide/config.md" target="_blank" rel="noopener noreferrer">编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">上一次编辑:</span> <span class="time">7/15/2021, 12:35:25 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
       ←
       <a href="/guide/file.html" class="prev">
         目录结构
@@ -167,6 +220,6 @@ gtag('config', 'G-CZJ8X185MG');</script>
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
-    <script src="/assets/js/app.809e9c9f.js" defer></script><script src="/assets/js/2.19ce4ea2.js" defer></script><script src="/assets/js/17.70351a7c.js" defer></script><script src="/assets/js/3.1780971e.js" defer></script>
+    <script src="/assets/js/app.90eb56fe.js" defer></script><script src="/assets/js/2.19ce4ea2.js" defer></script><script src="/assets/js/17.d79469da.js" defer></script><script src="/assets/js/3.1780971e.js" defer></script>
   </body>
 </html>
